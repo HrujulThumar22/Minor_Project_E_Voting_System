@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/webjars/bootstrap/4.1.3/css/bootstrap.min.css"/>
+    <script src="/webjars/jquery/3.3.1/jquery.min.js"></script>
+    <script src="/webjars/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <title>Elections Results</title>
+</head>
+<body>
+
+<div style="width:900px; margin:0 auto;">
+    <div style="width: 100%; margin:5% auto;">
+
+<div class="card text-center">
+    <div class="card-header">
+        Results
+    </div>
+    <div class="card-body">
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="container" th:each="c : ${candidatesByVotes}">
+                        <h4 th:text="${c.key.name} + ' '+${c.key.surname}"></h4>
+                        <h5 th:text="${c.key.politicalPartyDto.name}"></h5>
+                        <p th:text="'Votes: '+${#numbers.formatDecimal(c.value, 2, 2)} + '%'"></p>
+                    </div>
+                </div>
+                <div class="col-sm-8">
+                    <div class="row">
+                        <div class="col-sm-6" style="background-color:whitesmoke;">
+                            <div class="container" th:each="p : ${politicalPartiesByVotes}">
+                                <h3 th:text="${p.key.name}"></h3>
+                                <p th:text="'Votes: '+${#numbers.formatDecimal(p.value, 2, 2)} + '%'"></p>
+                            </div>
+                        </div>
+                        <div class="col-sm-6" style="background-color:white;">
+                            <div class="container" th:each="s : ${constituenciesByVotes}">
+                                <h3 th:text="${s.key.name}"></h3>
+                                <p th:text="'Votes: '+${s.value}"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="container">
+                                <div class="container" th:each="g : ${genderStatistics}">
+                                    <h3 th:text="${g.key.description}"></h3>
+                                    <p th:text="'Votes: '+${#numbers.formatDecimal(g.value, 2, 2)} + '%'"></p>
+                                </div>
+                                <h3>Average age</h3>
+                                <p th:text="${#numbers.formatDecimal(ageStatistics, 2, 2)}"></p>
+                            </div>
+                        </div>
+                        <div class="col-sm-6" style="background-color:whitesmoke;">
+                            <div class="container" th:each="e : ${educationStatistics}">
+                                <h3 th:text="${e.key.description}"></h3>
+                                <p th:text="'Votes: '+${#numbers.formatDecimal(e.value, 2, 2)} + '%'"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <div class="card-footer text-muted">
+        ELECTIONS VOTING
+    </div>
+</div>
+
+    </div>
+</div>
+
+</body>
+</html>
